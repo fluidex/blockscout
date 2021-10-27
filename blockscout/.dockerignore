@@ -1,0 +1,48 @@
+blockscout/.git
+blockscout/.github
+blockscout/.circleci
+
+# App artifacts
+blockscout/_build
+blockscout/apps/*/cover
+blockscout/apps/*/logs
+blockscout/cover
+blockscout/db
+blockscout/deps
+blockscout/doc
+blockscout/*.ez
+blockscout/logs
+
+# Generated on crash by the VM
+erl_crash.dump
+
+# Generated on crash by NPM
+npm-debug.log
+
+# Static artifacts
+blockscout/apps/**/node_modules
+
+# Since we are building assets from assets/,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+blockscout/apps/*/priv/static/
+
+# Files matching config/*.secret.exs pattern contain sensitive
+# data and you should not commit them into version control.
+#
+# Alternatively, you may comment the line below and commit the
+# secrets files as long as you replace their contents by environment
+# variables.
+blockscout/apps/*/config/*.secret.exs
+
+# Wallaby screenshots
+screenshots/
+
+# Sobelow
+.sobelow
+
+# osx 
+.DS_Store
+
+# mix phx.gen.cert self-signed certs for dev
+blockscout/apps/block_scout_web/priv/cert

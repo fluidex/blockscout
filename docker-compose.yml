@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  database:
+    image: postgres:13
+    container_name: blockscout_db
+    restart: always
+    volumes:
+      - ./volumes/blockscout_db/data:/var/lib/postgresql/data
+    env:
+      POSTGRES_USER: blockscout
+      POSTGRES_PASSWORD: blockscout
+      POSTGRES_DB: blockscout
+
+  web:
+    build: blockscout
+    ports:
+      - "8000:8000"
+    env:
+      DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout

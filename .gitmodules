@@ -1,0 +1,3 @@
+[submodule "blockscout/blockscout"]
+	path = blockscout/blockscout
+	url = https://github.com/poanetwork/blockscout

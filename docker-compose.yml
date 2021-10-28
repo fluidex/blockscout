@@ -5,8 +5,8 @@ services:
     container_name: blockscout_db
     restart: always
     volumes:
-      - ./volumes/blockscout_db/data:/var/lib/postgresql/data
-    env:
+      - /var/lib/postgresql/data
+    environment:
       POSTGRES_USER: blockscout
       POSTGRES_PASSWORD: blockscout
       POSTGRES_DB: blockscout
@@ -14,6 +14,25 @@ services:
   web:
     build: blockscout
     ports:
-      - "8000:8000"
-    env:
+      - "4000:4000"
+    depends_on:
+      - "database"
+      - "ganache"
+    environment:
+      MIX_ENV: prod
+      ETHEREUM_JSONRPC_VARIANT: ganache
+      ETHEREUM_JSONRPC_HTTP_URL: http://ganache:8545
+      BLOCKSCOUT_PROTOCOL: http
+      ECTO_USE_SSL: "false"
+      CHAIN_ID: 53371
+      PORT: 4000
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
+
+  ganache:
+    build: ganache
+    ports:
+      - "8545:8545"
+    volumes:
+      - /ganache/db
+    environment:
+      MNEMONIC: "anxiety else floor soap tent sight belt leave top velvet meadow walk intact spice polar"

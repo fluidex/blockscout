@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: blockscout
 
   web:
-    build: blockscout
+    build: ../blockscout
     ports:
       - "4000:4000"
     depends_on:
@@ -29,7 +29,7 @@ services:
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
 
   ganache:
-    build: ganache
+    build: ../ganache
     ports:
       - "8545:8545"
     volumes:

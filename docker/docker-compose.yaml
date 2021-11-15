@@ -17,22 +17,21 @@ services:
       - "4000:4000"
     depends_on:
       - "database"
-      - "ganache"
+      - "geth"
     environment:
       MIX_ENV: prod
-      ETHEREUM_JSONRPC_VARIANT: ganache
-      ETHEREUM_JSONRPC_HTTP_URL: http://ganache:8545
+      ETHEREUM_JSONRPC_VARIANT: geth
+      ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
       BLOCKSCOUT_PROTOCOL: http
       ECTO_USE_SSL: "false"
       CHAIN_ID: 53371
       PORT: 4000
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
 
-  ganache:
-    build: ../ganache
+  geth:
+    build: ../geth
     ports:
       - "8545:8545"
+      - "8546:8546"
     volumes:
-      - /ganache/db
-    environment:
-      MNEMONIC: "anxiety else floor soap tent sight belt leave top velvet meadow walk intact spice polar"
+      - /geth/data

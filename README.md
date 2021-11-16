@@ -1,3 +1,31 @@
 # blockscout
 
-FluiDex local Ethereum network (using ganache) and explorer stuff.
+FluiDex local Ethereum private chain (using geth) and explorer stuff.
+
+# deterministic address
+
+if using account 0x06A73506e9d3f6203B6064bc08c27b37c45f2a8E, and nonce=0.
+running `npx hardhat run scripts/deploy.ts --network geth`.
+
+```
+Verifier deployed to: 0x5b4CA8b1f2fB42Dcd0D4b956fc6380928Cbf3e77
+genesisRoot: 0x08d86d872ad1fc9c1b5e55369bdddb5188d4d2c0381a86a3f345fbac79b5fbf8
+FluiDex deployed to: 0xeD14c2e41AdA14Da3CE41148c77764D0ba1E4760
+register user 0x5d182c51bcfe99583d7075a7a0c10d96bef82b8a059c4bf8c5f6e7124cf2bba3
+register user 0xe9b54eb2dbf0a14faafd109ea2a6a292b78276c8381f8ef984dddefeafb2deaf
+register user 0xd530fbd1a31e73fba0ecb370e6f93f29e9dbe6b30454281f0a05b1e2478ebf2a
+register user 0xcbc39e27f90416f287aefe20490227723e157d26dfff30c24f2a885b27b42490
+register user 0x3941e71d773f3c07f781c420e3395d290128298a0a88fe5bfa3830cce10c991d
+FluiDexDelegate deployed to: 0x8c680213C24d77Ba49AF2Dd65A431a621Fe8D2c5
+DELEGATE_ROLE 0x1a82baf2b928242f69f7147fb92490c6288d044f7257b88817e6284f1eec0f15
+grant DELEGATE_ROLE to FluiDexDelegate
+add USDT token at 0x021030D7BA0B21633fE351e83C9b0b8035360329
+add UNI token at 0xB412EcE47485D3CFbf65e1b95408D5679eF9c36d
+add LINK token at 0x1bA66DB7A54738F5597FeCa2640fd2E717722230
+add YFI token at 0xfb30fd66413c01547115C22B62Bde0fF3700DE1F
+add MATIC token at 0x1185f0F4Ea8a713920852b6113F2C3eFe593899F
+```
+
+# TODO
+
+- blockscout still have stuffs to build for the container fisrt time start-up, can we move this into docker build?

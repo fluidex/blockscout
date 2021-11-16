@@ -1,4 +1,5 @@
-version: '3.4'
+version: "3"
+
 services:
   database:
     image: postgres:13
@@ -13,25 +14,69 @@ services:
 
   web:
     build: ../blockscout
+    container_name: blockscout_web
     ports:
       - "4000:4000"
     depends_on:
       - "database"
-      - "geth"
+      - "geth-sealer-1"
+      - "geth-sealer-2"
+      - "geth-sealer-3"
     environment:
       MIX_ENV: prod
       ETHEREUM_JSONRPC_VARIANT: geth
-      ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
+      ETHEREUM_JSONRPC_HTTP_URL: http://geth-sealer-1:8545
       BLOCKSCOUT_PROTOCOL: http
       ECTO_USE_SSL: "false"
       CHAIN_ID: 53371
       PORT: 4000
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
 
-  geth:
-    build: ../geth
-    ports:
-      - "8545:8545"
-      - "8546:8546"
+  geth-bootstrap:
+    build: ../geth/bootstrap
+    container_name: geth_bootstrap_once
+    depends_on:
+      - "geth-sealer-1"
+      - "geth-sealer-2"
+      - "geth-sealer-3"
     volumes:
-      - /geth/data
+      - ${PWD}/static-nodes.json:/static-nodes.json:rw
+      - /etc/localtime:/etc/localtime:ro
+
+  geth-sealer-1:
+    build: ../geth/sealer
+    container_name: geth_sealer_1
+    ports:
+      - 8545:8545
+      - 8546:8546
+    volumes:
+      - ../geth/sealer/sealer1.key:/nodekey:ro
+      - ${PWD}/static-nodes.json:/geth/geth/static-nodes.json:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /geth
+    environment:
+      ETHER_BASE: "0x7c839332996f0e40fe3bdaa41b5bd8236aba1569"
+  
+  geth-sealer-2:
+    build: ../geth/sealer
+    container_name: geth_sealer_2
+    restart: on-failure
+    volumes:
+      - ../geth/sealer/sealer2.key:/nodekey:ro
+      - ${PWD}/static-nodes.json:/geth/geth/static-nodes.json:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /geth
+    environment:
+      ETHER_BASE: "0x8703a2a49f7bb2c1015d99f46d7c14d4be2b9edd"
+  
+  geth-sealer-3:
+    build: ../geth/sealer
+    container_name: geth_sealer_3
+    restart: on-failure
+    volumes:
+      - ../geth/sealer/sealer3.key:/nodekey:ro
+      - ${PWD}/static-nodes.json:/geth/geth/static-nodes.json:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /geth
+    environment:
+      ETHER_BASE: "0xe01b335ba44a028d73ba1b7f957eb6b25be539a4"

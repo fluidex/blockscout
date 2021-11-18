@@ -17,7 +17,6 @@ services:
       - "4000:4000"
     depends_on:
       - "database"
-      - "ganache"
     environment:
       MIX_ENV: prod
       ETHEREUM_JSONRPC_VARIANT: ganache
@@ -27,12 +26,3 @@ services:
       CHAIN_ID: 53371
       PORT: 4000
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
-
-  ganache:
-    build: ../ganache
-    ports:
-      - "8545:8545"
-    volumes:
-      - /ganache/db
-    environment:
-      MNEMONIC: "anxiety else floor soap tent sight belt leave top velvet meadow walk intact spice polar"

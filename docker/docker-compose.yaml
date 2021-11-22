@@ -26,3 +26,5 @@ services:
       CHAIN_ID: 53371
       PORT: 4000
       DATABASE_URL: postgresql://blockscout:blockscout@database:5432/blockscout
+      extra_hosts:
+        - "host.docker.internal:host-gateway"

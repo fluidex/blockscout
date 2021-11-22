@@ -20,7 +20,7 @@ services:
     environment:
       MIX_ENV: prod
       ETHEREUM_JSONRPC_VARIANT: ganache
-      ETHEREUM_JSONRPC_HTTP_URL: http://ganache:8545
+      ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:8545
       BLOCKSCOUT_PROTOCOL: http
       ECTO_USE_SSL: "false"
       CHAIN_ID: 53371
